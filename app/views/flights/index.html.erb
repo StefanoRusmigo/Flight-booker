@@ -1,0 +1,52 @@
+<h1>Flight Booker </h1>
+
+<%= form_for :index, method: :get do |f| %>
+ From: <%= select_tag(:departure, options_for_select(@airports)) %></br>
+ To: <%= select_tag(:arrival, options_for_select(@airports.reverse)) %></br>
+  <%= f.submit %>
+<% end %>
+
+<% unless @flights.blank? %>
+
+	<h1>Select Dates</h1>
+<table>
+	<tr>
+		<th></th>	
+		<th>ID</th>
+		<th>Depart</th>
+		<th>Arrival</th>
+		<th>Date</th>
+		<th>Time</th>
+		<th>Duration</th>
+		</tr>
+
+  <%= form_for :select_flight,url:new_booking_path , method: :get do |f| %>
+
+    <%= collection_radio_buttons(:flight,:flight_id,@flights,:id,:itself)  do |b|%>
+	<div class="radio">
+	<%= b.label do %>
+	<tr>
+	  <td><%= b.radio_button %></td>
+	  <td><%= b.text.id %> </td>
+	  <td><%= b.text.departure.name %></td>
+	  <td><%= b.text.arrival.name %></td>
+	  <td><%= b.text.start_date_formated %></td>
+	  <td><%= b.text.start_time_formated %></td>
+	  <td><%= b.text.duration_formated %></td>
+	 </tr>	
+	 <% end %>
+    </div>
+<% end %>
+
+<%= f.label :passengers %>
+    <select name="passengers">
+ <% (1..4).each do |n| %>
+        <option value="<%= n %>"><%= n %></option>
+      <% end %>
+      </select>
+<%= f.submit %>
+<% end %>
+</table>
+
+
+<% end %>

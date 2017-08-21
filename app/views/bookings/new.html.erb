@@ -1,0 +1,34 @@
+<h1><%= @flight.departure.name %> to <%= @flight.arrival.name %></h1>
+<table>
+	<tr>
+		<th>ID</th>
+		<th>Depart</th>
+		<th>Arrival</th>
+		<th>Date</th>
+		<th>Time</th>
+		<th>Duration</th>
+		</tr>
+
+		<tr>
+	  <td><%= @flight.id %> </td>
+	  <td><%= @flight.departure.name %></td>
+	  <td><%= @flight.arrival.name %></td>
+	  <td><%= @flight.start_date_formated %></td>
+	  <td><%= @flight.start_time_formated %></td>
+	  <td><%= @flight.duration_formated %></td>
+	 </tr>	
+	 </table>
+
+  <%= form_for @passenger, url:bookings_path, method: :post do |f| %>
+  	  <%  @passenger_no.times do |n| %>
+  	   	 <h2>Passenger<%= n+1 %></h2>
+	  	    <%= f.label :name %>
+	  	    <%= f.text_field :name, name:"details[][name]" %><br>     
+	  	    <%= f.label :email %>
+	  	    <%= f.text_field :email, name:"details[][email]" %><br>   
+	  	 <% end %>
+
+  	<%= hidden_field_tag  :flight_id, @flight.id %>
+  	<%= hidden_field_tag  :passenger_no, @passenger_no %>
+  	 		</br><%= f.submit "Book your flight" %>
+  <% end %>

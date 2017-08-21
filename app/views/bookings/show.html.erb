@@ -1,0 +1,7 @@
+<h3><%= @booking.flight.departure.name%> to <%= @booking.flight.arrival.name %></h3>
+<% @booking.passengers.each do |passenger| %>
+	</br>
+	name: <%= passenger.name %> </br>
+	email: <%= passenger.email%> </br>
+
+<% end %>
